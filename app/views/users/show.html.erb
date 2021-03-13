@@ -1,0 +1,10 @@
+<h1 class="text-center mt-4">Perfil de <%= @user.username %></h1>
+
+<div class="text-center mt-4 mx-auto">
+    <p><%= @user.email %></p>
+    <% if logged_in? && @user == current_user %>
+        <%= link_to "Edita tu perfil", edit_user_path(@user), class: "btn btn-outline-info" %>
+    <% end %>
+    <p>Mostrar las últimas llamadas realizadas del perfil</p>
+    <p>Revisar lógica de articles de alpha-blog</p>
+</div>

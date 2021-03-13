@@ -1,0 +1,115 @@
+<style>
+  .navbar-custom {
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+  }
+
+  .nav-link {
+    color: white;
+  }
+
+  .nav-link:hover {
+    color: cyan;
+  }
+
+  .link-wrapper {
+    padding: 8px;
+  }
+
+  .link-wrapper:hover {
+    background-color: black;
+    border-bottom: 2px solid cyan;
+    border-radius: 3px;
+  }
+
+  .link-wrapper.active {
+    background-color: black;
+    color: cyan;
+    border-radius: 3px;
+    border-top: 2px solid cyan;
+  }
+
+</style>
+
+<nav class="navbar sticky-top navbar-expand-lg navbar-custom">
+  <a class="navbar-brand" href="#"><%= image_tag("LOGO_REMCO.png", :alt => "logo remco") %></a>
+  <% if logged_in? %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li>
+          
+          <%= link_to home_path, class: "nav-link" do %>
+            <span class="link-wrapper <%=current_page?(home_path)? "active" : ""%>">Inicio</span>
+          <% end %>
+          
+        </li>
+        <li>
+          <%= link_to users_path, class: "nav-link" do %>
+            <span class="link-wrapper <%=current_page?(empresas_path)? "active" : ""%>">Empresas</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to users_path, class: "nav-link" do %>
+            <span class="link-wrapper <%=current_page?(clientes_path)? "active" : ""%>">Clientes</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to users_path, class: "nav-link" do %>
+            <span class="link-wrapper <%=current_page?(facturacion_path)? "active" : ""%>">Facturación</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to users_path, class: "nav-link" do %>
+            <span class="link-wrapper <%=current_page?(direcciones_path)? "active" : ""%>">Direcciones</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to users_path, class: "nav-link" do %>
+            <span class="link-wrapper <%=current_page?(entregas_path)? "active" : ""%>">Entregas</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to users_path, class: "nav-link" do %>
+            <span class="link-wrapper <%=current_page?(llamadas_path)? "active" : ""%>">Llamadas</span>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to users_path, class: "nav-link" do %>
+            <span class="link-wrapper <%=current_page?(users_path)? "active" : ""%>">Usuarios</span>
+          <% end %>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="link-wrapper <%=current_page?(categories_path)? "active" : ""%>">Catálogos</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <%= link_to "Categorías", categories_path, class: "dropdown-item" %>
+            <%= link_to "Clasificaciones", edit_user_path(current_user), class: "dropdown-item" %>
+            <%= link_to "Créditos", edit_user_path(current_user), class: "dropdown-item" %>
+            <%= link_to "Métodos de pago", edit_user_path(current_user), class: "dropdown-item" %>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="link-wrapper <%= 'active' if request.path == user_path(current_user) || request.path == edit_user_path(current_user) %>">
+              <%= current_user.username %> <%= "-admin" if current_user.admin? %>
+            </span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <%= link_to "Ver perfil", user_path(current_user), class: "dropdown-item" %>
+            <%= link_to "Editar perfil", edit_user_path(current_user), class: "dropdown-item" %>
+          </div>
+        </li>
+        <li>
+          <% if logged_in? %>
+            <%= link_to logout_path, class: "nav-link", method: :delete do%>
+              <span class="link-wrapper">Cerrar Sesión</span>
+            <% end %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  <% end %>
+</nav>

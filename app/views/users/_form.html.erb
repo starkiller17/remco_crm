@@ -1,0 +1,76 @@
+<div class="register container-fluid align-items-center">
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <!--<img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>-->
+            <%= image_tag("REMCO_mini.png", :alt => "logo remco") %>
+            <% if @user.new_record? %>
+                <h3>¡Bienvenido!</h3>
+                <p>Inicia sesión o regístrate para continuar.</p>
+                <!--<div class="justify-content-center">
+                    <#%= link_to "Iniciar sesión", login_path, class: "btn btn-success btn-lg" %>
+                </div>-->
+            <% end %>
+        </div>
+        <div class="col-md-9 register-right">
+            <!--<ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Employee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Hirer</a>
+                </li>
+            </ul>-->
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <% if @user.new_record? %>
+                        <h3 class="register-heading">Regístrate para CRM REMCO</h3>
+                    <% else %>
+                        <h3 class="register-heading">Edita tu perfil</h3>
+                    <% end %>
+                    <div class="row register-form">
+                        <%= render 'shared/errors', obj: @user%>
+                        <%= form_with(model: @user, class: "col-12", local: true) do |f| %>
+                            <div class="form-group row">
+                                <%= f.label :username, 'Usuario', class: "col-2 col-form-label" %><br />
+                                <div class="col-10">
+                                    <%= f.text_field :username, class: "form-control shadow rounded", placeholder: "Ingresa un nombre de usuario" %>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <%= f.label :email, class: "col-2 col-form-label" %><br />
+                                <div class="col-10">
+                                    <%= f.email_field :email, class: "form-control shadow rounded", placeholder: "Ingresa tu correo electrónico" %>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <%= f.label :password, 'Contraseña', class: "col-2 col-form-label" %><br />
+                                <div class="col-10">
+                                    <%= f.password_field :password, class: "form-control shadow rounded", placeholder: "Escoge tu contraseña" %>
+                                </div>
+                            </div>
+
+                            <% if !@user.new_record? && current_user.admin? %>
+                                <div class="form-group row">
+                                    <%= f.label :status, 'Estatus', class: "col-2 col-form-label" %><br />
+                                    <div class="col-10">
+                                        <%= f.label :status, "Activo", :value => "true"  %>
+                                        <%= f.radio_button :status, true %>
+                                        <%= f.label :status, "Inactivo", :value => "false" %>
+                                        <%= f.radio_button :status, false %>
+                                    </div>
+                                </div>
+                            <% end %>
+
+                            <div class="form-group row justify-content-center">
+                                <%= f.submit(@user.new_record? ? "Crear usuario" : "Actualizar perfil", class: "btn btn-outline-primary btn-lg") %>
+                            </div>
+                        <% end %>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,7 +9,16 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="d-flex flex-column">
+    <% if !current_page?(root_path) && !current_page?(login_path) %>
+      <%= render 'layouts/navigation' %>
+    <% end %>
+    <div id="page-content">
+      <%= render 'layouts/messages'  %>
+      <%= yield %>
+    </div>
+    <% #if !current_page?(root_path) && !current_page?(login_path) && !current_page?(signup_path) %>
+      <%#= render 'layouts/footer' %>
+    <% #end %> 
   </body>
 </html>
