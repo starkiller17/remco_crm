@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
 
   get 'signup', to: 'users#new'
+
+  # Post routes
+  #post 'create_category', to: 'categories#create_category'
   
   # Session routes
   get 'login', to: 'sessions#new'
@@ -21,5 +24,5 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
 
   resources :users, except: [:new]
-  resources :categories, except: [:destroy]
+  resources :categories
 end

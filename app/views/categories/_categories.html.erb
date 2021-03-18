@@ -1,0 +1,60 @@
+<div class="container white">
+    
+    <div class="row">
+        <div class="col-xs-12 mt-3 ml-3 mb-3">
+            <%= link_to new_category_path, :rel => 'noopener noreferrer' do %>
+            <button type="button" class="btn btn-success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="white" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                </svg>
+                Categoría
+            </button>
+            <% end %>
+        </div>
+    </div>
+
+    <table class="table table-stripped table-hover" id="categories_table">
+        <thead>
+            <tr>
+                <th>Categoría</th>
+                <th>Estatus</th>
+                <th>Fecha creación</th>
+                <th>Creada por</th>
+                <th>Actualizado por</th>
+                <th>Fecha actualización</th>
+                <th>Acciones</th>
+                <% if logged_in? && current_user.admin? %>
+                <th>Editar</th>
+                <% end %>
+            </tr>
+        </thead>
+        <tbody>
+            <% @categories.each do |category| %>
+                <tr>
+                    <td><%= category[:category] %></td>
+                    <td><%= category[:status] %></td>
+                    <td><%= category[:created_at].in_time_zone("America/Mexico_City").strftime("%d-%m-%Y %H:%M:%S") %></td>
+                    <td><%= category[:created_by] %></td>
+                    <td><%= category[:updated_at].in_time_zone("America/Mexico_City").strftime("%d-%m-%Y %H:%M:%S") %></td>
+                    <td><%= category[:updated_by] %></td>
+                    <td>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="save-icon" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path d="M15.003 3h2.997v5h-2.997v-5zm8.997 1v20h-24v-24h20l4 4zm-19 5h14v-7h-14v7zm16 4h-18v9h18v-9z"/></svg>
+                    </td>
+                    <% if logged_in? && current_user.admin? %>
+                    <td><%= link_to 'Editar perfil', edit_category_path(category), class: "btn btn-outline-info" %></td>
+                    <% end %>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(document).on("turbolinks:before-cache", function(){
+         $('#categories_table').DataTable().destroy();
+    });
+    
+    $(document).on("turbolinks:load", function() {
+        $('#categories_table').DataTable();    
+    });
+</script>
