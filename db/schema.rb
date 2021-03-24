@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_16_010025) do
+ActiveRecord::Schema.define(version: 2021_03_18_051545) do
 
   create_table "categories", force: :cascade do |t|
     t.string "category"
     t.string "created_by"
     t.string "updated_by"
     t.string "status", default: "active"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "classifications", force: :cascade do |t|
+    t.string "classification"
+    t.string "created_by"
+    t.string "updated_by"
+    t.string "status", default: "ACTIVO"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

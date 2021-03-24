@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
     skip_before_action :verify_authenticity_token
     before_action :set_category, only: [:show, :edit, :update]
-    before_action :require_user, except: [:index]
+    before_action :require_user
 
     def new
         @category = Category.new
@@ -30,7 +30,6 @@ class CategoriesController < ApplicationController
     end
 
     def show
-
     end
 
     def edit
