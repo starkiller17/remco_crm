@@ -1,0 +1,38 @@
+<section class="container control-box">
+    <div class="row">
+        <div class="mt-3 mb-3 col-lg-12 col-xs-12">
+            <%= form_with(model: @credit, local: true) do |f| %>
+                <%= render 'shared/errors', obj: @credit %>
+                <% if @credit.new_record? %>
+                    <%= f.hidden_field :created_by, value: current_user.username %>
+                <% end %>
+
+                <%= f.hidden_field :updated_by, value: current_user.username %>
+
+                <div class="row">
+                    <%= f.label :credit, "Crédito", class: "col-sm2 col-form-label" %>
+                    <div class="col-sm-10">
+                        <%= f.text_field :credit, class: "form-control upcase", required: true %>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <%= f.label :status, "Estatus", class: "col-sm-2 col-form-label" %>
+                    <div class="col-sm-10 mt-2">
+                        <%= f.radio_button :status, "ACTIVO", checked: true %>
+                        <%= f.label :status, "Activo" %>
+                        <%= f.radio_button :status, "INACTIVO" %>
+                        <%= f.label :status, "Inactivo" %>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-xs-12">
+                        <%= f.submit(@credit.new_record? ? "Agregar Crédito" : "Actualizar Crédito", class: "btn btn-success nuevo") %>
+                    </div>
+                </div>
+
+            <% end %>
+        </div>
+    </div>
+</section>

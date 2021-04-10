@@ -26,4 +26,5 @@ Rails.application.routes.draw do
   resources :users, except: [:new]
   resources :categories, except: [:show, :destroy]
   resources :classifications, except: [:show, :destroy]
+  resources :credits, except: [:show, :destroy]
 end

@@ -13,7 +13,7 @@ class ClassificationsController < ApplicationController
 
     def create
         begin
-            puts params[:classification][:classification].upcase!
+            params[:classification][:classification].upcase!
             @classification = Classification.new(classification_params)
             if @classification.save
                 flash[:notice] = "¡Clasificación creada exitosamente!"
