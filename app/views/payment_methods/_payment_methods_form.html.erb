@@ -1,25 +1,24 @@
 <section class="container control-box">
     <div class="row">
         <div class="mt-3 mb-3 col-lg-12 col-xs-12">
-            <%= form_with(model: @classification, local: true) do |f| %>
-                <%= render 'shared/errors', obj: @classification %>
-                <% if @classification.new_record? %>
+            <%= form_with(model: @payment_method, local: true) do |f| %>
+                <%= render 'shared/errors', obj: @payment_method %>
+
+                <% if @payment_method.new_record? %>
                     <%= f.hidden_field :created_by, value: current_user.username %>
                 <% end %>
 
-                <%= f.hidden_field :updated_by, value: current_user.username %>
+                <%= f.hidden_field :created_by, value: current_user.username %>
 
                 <div class="row">
-                    <%= f.label :classification, "Clasificación", class: "col-sm-2 col-form-label" %>
-                    <div class="col-sm-10">
-                        <%= f.text_field :classification, class: "form-control upcase", required: true %>
-                    </div>
+                    <%= f.label :payment_method, "Método de Pago", class: "col-sm-2 col-form-label" %>
+                    <%= f.text_field :payment_method, class: "form-control col-sm-10 upcase", required: true %>
                 </div>
 
                 <div class="row">
                     <%= f.label :status, "Estatus", class: "col-sm-2 col-form-label" %>
                     <div class="col-sm-10 mt-2">
-                        <%= f.radio_button :status, "ACTIVO", checked: true %>
+                        <%= f.radio_button :status, "ACTIVO", checked: true  %>
                         <%= f.label :status, "Activo" %>
                         <%= f.radio_button :status, "INACTIVO" %>
                         <%= f.label :status, "Inactivo" %>
@@ -28,7 +27,7 @@
 
                 <div class="row justify-content-center">
                     <div class="col-xs-6 mr-2">
-                        <%= link_to classifications_path do %>
+                        <%= link_to payment_methods_path do %>
                             <button type="button" class="btn btn-warning">
                                 Regresar
                             </button>
@@ -36,7 +35,7 @@
                     </div>
 
                     <div class="col-xs-6">
-                        <%= f.submit(@classification.new_record? ? "Agregar Categoría" : "Actualizar Categoría", class: "btn btn-success nuevo") %>
+                        <%= f.submit(@payment_method.new_record? ? "Agregar Método de Pago" : "Actualizar Método de Pago", class: "btn btn-success nuevo") %>
                     </div>
                 </div>
 

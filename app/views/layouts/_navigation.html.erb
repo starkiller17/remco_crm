@@ -85,14 +85,15 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="link-wrapper <%= "active" if current_page?(categories_path) || current_page?(new_category_path) ||
-                                                        current_page?(classifications_path) ||  current_page?(new_classification_path)
+                                                        current_page?(classifications_path) ||  current_page?(new_classification_path) ||
+                                                        current_page?(credits_path) || current_page?(payment_methods_path)
                                                       %>">Catálogos</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <%= link_to "Categorías", categories_path, class: "dropdown-item" %>
               <%= link_to "Clasificaciones", classifications_path, class: "dropdown-item" %>
               <%= link_to "Créditos", credits_path, class: "dropdown-item" %>
-              <%= link_to "Métodos de pago", edit_user_path(current_user), class: "dropdown-item" %>
+              <%= link_to "Métodos de pago", payment_methods_path, class: "dropdown-item" %>
             </div>
           </li>
           <li class="nav-item dropdown">
