@@ -1,0 +1,40 @@
+<section class="container control-box">
+    <div class="row">
+        <div class="mt-3 mb-3 col-lg-12 col-xs-12">
+            <%= form_with(model: @customer, local: true) do |f| %>
+                <%= render 'shared/errors', obj: @customer %>
+                <% if @customer.new_record? %>
+                    <%= f.hidden_field :created_by, value: current_user.username %>
+                <% end %>
+
+                <%= f.hidden_field :updated_by, value: current_user.username %>
+                
+                <div class="row">
+                    <%= f.label :customer, "Cliente", class: "col-sm-2 col-form-label" %>
+                    <div class="col-sm-10">
+                        <%= f.text_field :customer, class: "form-control upcase", required: true %>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <%= f.label :classification_id, "Clasificación", class: "col-sm-2 col-form-label" %>
+                    <div class="col-sm-10">
+                        <select id="select_classification" style="width: 90%">
+                            <% @classifications.each do |classification| %>
+                                <option value="<%= classification[:id] %>"><%= classification[:classification] %></option>
+                            <% end %>
+                        </select>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</section>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#select_classification").select2();
+    });
+
+</script>

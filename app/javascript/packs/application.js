@@ -7,7 +7,8 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
-require('datatables.net-bs4')
+require("datatables.net-bs4")
+require("jquery")
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -20,3 +21,5 @@ require('datatables.net-bs4')
 import "bootstrap"
 import $ from 'jquery';
 global.$ = jQuery;
+import 'select2'
+import 'select2/dist/css/select2.css'

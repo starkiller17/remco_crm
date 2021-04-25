@@ -28,4 +28,5 @@ Rails.application.routes.draw do
   resources :classifications, except: [:show, :destroy]
   resources :credits, except: [:show, :destroy]
   resources :payment_methods, except: [:show, :destroy]
+  resources :customers, except: [:show, :destroy]
 end

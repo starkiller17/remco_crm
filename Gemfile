@@ -25,6 +25,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'activerecord-reset-pk-sequence'
 
 gem 'will_paginate', '~> 3.1.0'
+gem "select2-rails"
+
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
