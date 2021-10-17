@@ -33,7 +33,7 @@
                             <div class="form-group row">
                                 <%= f.label :username, 'Usuario', class: "col-2 col-form-label" %><br />
                                 <div class="col-10">
-                                    <%= f.text_field :username, class: "form-control shadow rounded", placeholder: "Ingresa un nombre de usuario", disabled: true if !@user.new_record? %>
+                                    <%= f.text_field :username, class: "form-control shadow rounded", placeholder: "Ingresa un nombre de usuario", disabled: @user.new_record? ? false : true %>
                                 </div>
                             </div>
 
