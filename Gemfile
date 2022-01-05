@@ -22,7 +22,7 @@ gem 'bcrypt', '~> 3.1.7'
 # To restart sequences from sqlite tables
 gem 'activerecord-reset-pk-sequence'
 
-gem 'will_paginate', '~> 3.1.6'
+gem 'will_paginate', '~> 3.3.0'
 gem "select2-rails"
 
 
