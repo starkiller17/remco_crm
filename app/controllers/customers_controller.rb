@@ -9,8 +9,15 @@ class CustomersController < ApplicationController
 
   def new
     @customer = Customer.new
-    @classifications = Classification.where(status: "ACTIVO")
-    @categories = Category.where(status: "ACTIVO")
+    @classifications = Classification.where(status: "ACTIVO").order(:classification)
+    @selected_classification = @classifications.first.try(:id)
+
+    @categories = Category.where(status: "ACTIVO").order(:category)
+    @selected_category = @categories.first.try(:id)
+    puts "*" * 100
+    puts @selected_category
+    puts @selected_classification
+    puts "*" * 100
   end
 
   def create
