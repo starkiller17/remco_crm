@@ -1,5 +1,5 @@
 @import 'bootstrap/dist/css/bootstrap';
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 
 :root {
   box-sizing: border-box;
@@ -13,7 +13,7 @@
 
 @font-face {
   font-family: 'Montserrat-Regular';
-  src: asset-url('../assets/fonts/Montserrat-Regular.ttf') format("truetype");
+  src: url('../assets/fonts/Montserrat-Regular.ttf') format("truetype");
   //src: url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
   font-weight: normal;
   font-style: normal;
@@ -366,4 +366,14 @@ body {
 
 .pointer {
   cursor: pointer;
+}
+
+.select-max-width {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.pb-2 {
+  margin-bottom: 2em;
 }

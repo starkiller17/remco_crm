@@ -3,12 +3,15 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+require("jquery")
+import "bootstrap"
+import "select2"
+import 'select2/dist/css/select2.css'
 require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 require("datatables.net-bs4")
-require("jquery")
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -18,8 +21,18 @@ require("jquery")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-import "bootstrap"
-import $ from 'jquery';
+
 global.$ = jQuery;
-import 'select2'
-import 'select2/dist/css/select2.css'
+import 'select2';
+import 'select2/dist/css/select2.css';
+import $ from 'jquery';
+
+window.addEventListener('DOMContentLoaded', () => {
+  $('#select_classification').select2({
+    theme: 'bootstrap'
+  });
+
+  $('#select_category').select2({
+    theme: 'bootstrap'
+  });
+});
