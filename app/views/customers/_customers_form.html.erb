@@ -1,5 +1,5 @@
 <section class="container control-box">
-        <%= form_with(model: @customer, local: true, :html => { class: "" }) do |f| %>
+        <%= form_with(model: @customer) do |f| %>
             <%= render 'shared/errors', obj: @customer %>
             <% if @customer.new_record? %>
                 <%= f.hidden_field :created_by, value: current_user.username %>
@@ -9,7 +9,7 @@
             
             <div class="form-group">
                 <div class="col-sm-12">
-                    <%= f.label :customer, "Cliente", class: "form-label" %>
+                    <%= f.label :customer, "Nombre del Cliente", class: "form-label" %>
                     <br>
                     <%= f.text_field :customer, class: "form-control upcase", required: true %>
                 </div>
@@ -29,16 +29,100 @@
                     <%= select_tag :classification_id, options_from_collection_for_select(@classifications, :id, :classification), id: "select_classification", class: "form-control select-max-width " %>
                 </div>
             </div>
+
+            <div class="row">
+                
+                <div class="col-4 pb-2">
+                    <%= f.label :communication, "Nivel de comunicación", class: "form-label" %>
+                    <br>
+                    <select id="select_communication" class="select-max-width form-control">
+                        <% @communication.each do |element| %>
+                            <option value="<%=element[:id] %>"><%= element[:communication] %></option>
+                        <% end %>
+                    </select>
+                </div>
+
+                <div class="col-4 pb-2">
+                    <%= f.label :size, "Tamaño", class: "form-label" %>
+                    <br>
+                    <select id="select_size" class="select-max-width form-control">
+                        <% @size.each do |element| %>
+                            <option value="<%=element[:id] %>"><%= element[:size] %></option>
+                        <% end %>
+                    </select>
+                </div>
+
+                <%= f.hidden_field :level, id: "level" %>
+
+                <div class="col-4 pb-2">
+                    <%= f.label :customer_type, "Tipo de Cliente", class: "form-label" %>
+                    <br>
+                    <%= f.text_field :customer_type, class: "form-control", required: true %>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 pb-2">
+                    <%= f.label :web_address, "Web address", class: "form-label" %>
+                    <br>
+                    <%= f.text_field :web_address, class: "form-control" %>
+                </div>
+
+                <div class="col-sm-6 pb-2">
+                    <%= f.label :status, "Estatus", class: "form-label" %>
+                    <br>
+                    <%= f.radio_button :status, "ACTIVO", id: "status_activo", checked: true %>
+                    <%= f.label :status, "Activo", for: "status_activo" %>
+                    <%= f.radio_button :status, "INACTIVO", id: "status_inactivo" %>
+                    <%= f.label :status, "Inactivo", for: "status_inactivo" %>
+                </div>
+            </div>
+
+            <div class="row justify-content-center pb-2">
+                <div class="col-xs-6 mr-2">
+                    <%= link_to customers_path do %>
+                        <button type="button" class="btn btn-warning">
+                            Regresar
+                        </button>
+                    <% end %>
+                </div>
+
+                <div class="col-xs-6">
+                    <%= f.submit(@customer.new_record? ? "Agregar Cliente" : "Actualizar Cliente", class: "btn btn-success nuevo") %>
+                </div>
+
+            </div>
+
         <% end %>
 </section>
 
 
 <script type="text/javascript">
-    let categorySelect = document.getElementById("select_category");
+    document.addEventListener("DOMContentLoaded", function(event) {
+        levelHandler();
+    });
+
+    var categorySelect = document.getElementById("select_category");
     categorySelect.value = "<%= @selected_category %>";
     categorySelect.dispatchEvent(new Event('change'));
 
-    let classificationSelect = document.getElementById("select_classification");
+    var classificationSelect = document.getElementById("select_classification");
     classificationSelect.value = "<%= @selected_classification %>";
     classificationSelect.dispatchEvent(new Event('change'));
+
+    var selectCommunication = document.getElementById("select_communication");
+    var selectSize = document.getElementById("select_size");
+    var levelInput = document.getElementById("level");
+
+    var levelHandler = () => {
+        var communication = selectCommunication.value;
+        var size = selectSize.value;
+
+        var level = communication + size;
+        levelInput.value = level;
+    };
+
+    selectCommunication.addEventListener("change", levelHandler);
+    selectSize.addEventListener("change", levelHandler);
+
 </script>

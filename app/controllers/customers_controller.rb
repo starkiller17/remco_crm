@@ -14,6 +14,16 @@ class CustomersController < ApplicationController
 
     @categories = Category.where(status: "ACTIVO").order(:category)
     @selected_category = @categories.first.try(:id)
+
+    @communication = [
+      {id: '0', communication: 'NO HAY QUE OFRECER.'}, {id: '0.0', communication: 'SIN INTERÉS.'}, 
+      {id: '1', communication: 'BUENO'}, {id: '2', communication: 'REGULAR'},  {id: '3', communication: 'MALO'}
+    ]
+
+    @size = [
+      {id: 'CH', size: 'CHICA'}, {id: 'M', size: 'MEDIANA'}, {id: 'G', size: 'GRANDE'}
+    ]
+
     puts "*" * 100
     puts @selected_category
     puts @selected_classification
@@ -22,7 +32,33 @@ class CustomersController < ApplicationController
 
   def create
     begin
+      @classifications = Classification.where(status: "ACTIVO").order(:classification)
+      @selected_classification = @classifications.first.try(:id)
+
+      @categories = Category.where(status: "ACTIVO").order(:category)
+      @selected_category = @categories.first.try(:id)
+      @categories = Category.where(status: "ACTIVO").order(:category)
+      @selected_category = @categories.first.try(:id)
+
+      @communication = [
+        {id: '0', communication: 'NO HAY QUE OFRECER.'}, {id: '0.0', communication: 'SIN INTERÉS.'}, 
+        {id: '1', communication: 'BUENO'}, {id: '2', communication: 'REGULAR'},  {id: '3', communication: 'MALO'}
+      ]
+  
+      @size = [
+        {id: 'CH', size: 'CHICA'}, {id: 'M', size: 'MEDIANA'}, {id: 'G', size: 'GRANDE'}
+      ]
+
       params[:customer][:customer].upcase!
+      params[:customer][:category_id] = params[:category_id].to_i
+      params[:customer][:classification_id] = params[:classification_id].to_i
+      
+      puts "*" * 100
+      puts params[:customer][:customer]
+      puts params.to_json
+      puts customer_params
+      puts "*" * 100
+
       @customer = Customer.new(customer_params)
       if @customer.save
         flash[:notice] = "¡Cliente creado exitosamente!"
@@ -30,8 +66,7 @@ class CustomersController < ApplicationController
       else
         render 'new'
       end
-    rescue => e
-      puts "Excepción #{e}"
+    
     end
   end
 
@@ -49,7 +84,7 @@ class CustomersController < ApplicationController
 
   private
   def customer_params
-    params.require(:customer).permit(:category_id, :classification_id, :level, :customer_type, :web_address, :created_by, :updated_by)
+    params.require(:customer).permit(:customer, :category_id, :classification_id, :level, :customer_type, :web_address, :status, :created_by, :updated_by)
   end
 
   def set_customer
