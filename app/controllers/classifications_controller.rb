@@ -31,6 +31,7 @@ class ClassificationsController < ApplicationController
     end
 
     def update
+        params[:classification][:classification].upcase!
         if @classification.update(classification_params)
             flash[:notice] = "¡La clasificación se ha actualizado!"
             redirect_to classifications_path

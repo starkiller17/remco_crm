@@ -46,7 +46,7 @@ class PaymentMethodsController < ApplicationController
     end
 
     def set_payment_method
-        payment_method = PaymentMethod.find(params[:id])
+        @payment_method = PaymentMethod.find(params[:id])
     end
 
 end
