@@ -45,8 +45,12 @@ class CustomersController < ApplicationController
   end
 
   def update
+    params[:customer][:customer].upcase!
+    params[:customer][:category_id] = params[:category_id].to_i
+    params[:customer][:classification_id] = params[:classification_id].to_i
     if @customer.update(customer_params)
       flash[:notice] = "¡El cliente se ha actualizado!"
+      redirect_to customers_path
     else
       render 'edit'
     end
