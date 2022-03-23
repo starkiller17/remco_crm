@@ -27,7 +27,7 @@ import 'select2';
 import 'select2/dist/css/select2.css';
 import $ from 'jquery';
 
-window.addEventListener('DOMContentLoaded', () => {
+$( document ).on('turbolinks:load', function() {
   $('#select_classification').select2({
     theme: 'bootstrap'
   });
