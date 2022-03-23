@@ -2,6 +2,7 @@ class CustomersController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_customer, only: [:show, :edit, :update]
   before_action :require_user
+  before_action :set_selects, only: [:create, :new, :edit]
 
   def index
     @customers = Customer.all
@@ -9,20 +10,6 @@ class CustomersController < ApplicationController
 
   def new
     @customer = Customer.new
-    @classifications = Classification.where(status: "ACTIVO").order(:classification)
-    @selected_classification = @classifications.first.try(:id)
-
-    @categories = Category.where(status: "ACTIVO").order(:category)
-    @selected_category = @categories.first.try(:id)
-
-    @communication = [
-      {id: '0', communication: 'NO HAY QUE OFRECER.'}, {id: '0.0', communication: 'SIN INTERÉS.'}, 
-      {id: '1', communication: 'BUENO'}, {id: '2', communication: 'REGULAR'},  {id: '3', communication: 'MALO'}
-    ]
-
-    @size = [
-      {id: 'CH', size: 'CHICA'}, {id: 'M', size: 'MEDIANA'}, {id: 'G', size: 'GRANDE'}
-    ]
 
     puts "*" * 100
     puts @selected_category
@@ -32,22 +19,6 @@ class CustomersController < ApplicationController
 
   def create
     begin
-      @classifications = Classification.where(status: "ACTIVO").order(:classification)
-      @selected_classification = @classifications.first.try(:id)
-
-      @categories = Category.where(status: "ACTIVO").order(:category)
-      @selected_category = @categories.first.try(:id)
-      @categories = Category.where(status: "ACTIVO").order(:category)
-      @selected_category = @categories.first.try(:id)
-
-      @communication = [
-        {id: '0', communication: 'NO HAY QUE OFRECER.'}, {id: '0.0', communication: 'SIN INTERÉS.'}, 
-        {id: '1', communication: 'BUENO'}, {id: '2', communication: 'REGULAR'},  {id: '3', communication: 'MALO'}
-      ]
-  
-      @size = [
-        {id: 'CH', size: 'CHICA'}, {id: 'M', size: 'MEDIANA'}, {id: 'G', size: 'GRANDE'}
-      ]
 
       params[:customer][:customer].upcase!
       params[:customer][:category_id] = params[:category_id].to_i
@@ -66,7 +37,10 @@ class CustomersController < ApplicationController
       else
         render 'new'
       end
-    
+    rescue => exception
+      puts "X" * 50
+      puts exception
+      puts "X" * 50
     end
   end
 
@@ -80,6 +54,23 @@ class CustomersController < ApplicationController
 
   def edit
 
+  end
+
+  def set_selects
+    @classifications = Classification.where(status: "ACTIVO").order(:classification)
+    @selected_classification = @classifications.first.try(:id)
+
+    @categories = Category.where(status: "ACTIVO").order(:category)
+    @selected_category = @categories.first.try(:id)
+
+    @communication = [
+      {id: '0', communication: 'NO HAY QUE OFRECER.'}, {id: '0.0', communication: 'SIN INTERÉS.'}, 
+      {id: '1', communication: 'BUENO'}, {id: '2', communication: 'REGULAR'},  {id: '3', communication: 'MALO'}
+    ]
+
+    @size = [
+      {id: 'CH', size: 'CHICA'}, {id: 'M', size: 'MEDIANA'}, {id: 'G', size: 'GRANDE'}
+    ]
   end
 
   private
