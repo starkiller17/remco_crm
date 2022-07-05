@@ -21,8 +21,8 @@ class CustomersController < ApplicationController
     begin
 
       params[:customer][:customer].upcase!
-      params[:customer][:category_id] = params[:category_id].to_i
-      params[:customer][:classification_id] = params[:classification_id].to_i
+      #params[:customer][:category_id] = params[:category_id].to_i
+      #params[:customer][:classification_id] = params[:classification_id].to_i
       
       puts "*" * 100
       puts params[:customer][:customer]
@@ -46,8 +46,8 @@ class CustomersController < ApplicationController
 
   def update
     params[:customer][:customer].upcase!
-    params[:customer][:category_id] = params[:category_id].to_i
-    params[:customer][:classification_id] = params[:classification_id].to_i
+    #params[:customer][:category_id] = params[:category_id].to_i
+    #params[:customer][:classification_id] = params[:classification_id].to_i
     if @customer.update(customer_params)
       flash[:notice] = "¡El cliente se ha actualizado!"
       redirect_to customers_path
@@ -62,10 +62,15 @@ class CustomersController < ApplicationController
 
   def set_selects
     @classifications = Classification.where(status: "ACTIVO").order(:classification)
-    @selected_classification = @classifications.first.try(:id)
-
     @categories = Category.where(status: "ACTIVO").order(:category)
-    @selected_category = @categories.first.try(:id)
+
+    if params[:id].present?
+      @selected_classification = @classifications.find_by_id(@customer.classification_id).id
+      @selected_category = @categories.find_by_id(@customer.category_id).id
+    else
+      @selected_classification = @classifications.first.try(:id)
+      @selected_category = @categories.first.try(:id)
+    end
 
     @communication = [
       {id: '0', communication: 'NO HAY QUE OFRECER.'}, {id: '0.0', communication: 'SIN INTERÉS.'}, 

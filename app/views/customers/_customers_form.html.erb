@@ -1,5 +1,5 @@
 <section class="container control-box">
-        <%= form_with(model: @customer) do |f| %>
+        <%= form_with(model: @customer, local: true) do |f| %>
             <%= render 'shared/errors', obj: @customer %>
             <% if @customer.new_record? %>
                 <%= f.hidden_field :created_by, value: current_user.username %>
@@ -20,13 +20,13 @@
                 <div class="col-6 pb-2">
                     <%= f.label :category_id, "Categoría", class: "form-label" %>
                     <br>
-                    <%= select_tag :category_id, options_from_collection_for_select(@categories, :id, :category), id: "select_category", class: "select-max-width form-control" %>
+                    <%= f.select :category_id, options_from_collection_for_select(@categories, :id, :category), id: "select_category", class: "select-max-width form-control" %>
                 </div>
 
                 <div class="col-6 pb-2">
                     <%= f.label :classification_id, "Clasificación", class: "form-label" %>
                     <br>
-                    <%= select_tag :classification_id, options_from_collection_for_select(@classifications, :id, :classification), id: "select_classification", class: "form-control select-max-width " %>
+                    <%= f.select :classification_id, options_from_collection_for_select(@classifications, :id, :classification), id: "select_classification", class: "form-control select-max-width " %>
                 </div>
             </div>
 
@@ -102,11 +102,13 @@
         levelHandler();
     });
 
-    var categorySelect = document.getElementById("select_category");
+    //var categorySelect = document.getElementById("select_category");
+    var categorySelect = document.getElementById("customer_category_id");
     categorySelect.value = "<%= @selected_category %>";
     categorySelect.dispatchEvent(new Event('change'));
 
-    var classificationSelect = document.getElementById("select_classification");
+    //var classificationSelect = document.getElementById("select_classification");
+    var classificationSelect = document.getElementById("customer_classification_id");
     classificationSelect.value = "<%= @selected_classification %>";
     classificationSelect.dispatchEvent(new Event('change'));
 
